@@ -418,6 +418,7 @@ function makeGraphs(error, data) {
     // .size(10)
     .group(function(d) { return d.value.category; })
     .columns([
+      function(d) { return ' * '; },
       function(d) { return d.key; },
       function(d) { return numberFormat(d.value.grade7AverageScore); },
       function(d) { return numberFormat(d.value.grade8AverageScore); },
