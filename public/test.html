@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>lets see what we can do eh</title>
+  <meta charset="UTF-8">
+  <link href="http://jun9.github.io/dc.js/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="http://jun9.github.io/dc.js/css/dc.css"/>
+  <link href='http://jun9.github.io/dc.js/highlighter/shCore.css' rel='stylesheet' type='text/css'/>
+  <link href='http://jun9.github.io/dc.js/highlighter/shThemeDefault.css' rel='stylesheet' type='text/css'/>
+</head>
+<body>
+
+  <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="http://jun9.github.io/dc.js/js/crossfilter.js"></script>
+  <script type="text/javascript" src="http://jun9.github.io/dc.js/js/dc.js"></script>
+
+  <!-- <script src='js/queue.js' type='text/javascript'></script> -->
+  <script src='js/test.js' type='text/javascript'></script>
+
+  <script src='http://jun9.github.io/dc.js/highlighter/shCore.js' type='text/javascript'></script>
+  <script src="http://jun9.github.io/dc.js/highlighter/shAutoloader.js" type="text/javascript"></script>
+  <script src='http://jun9.github.io/dc.js/highlighter/shBrushJScript.js' type='text/javascript'></script>
+  <script src='http://jun9.github.io/dc.js/highlighter/shBrushXml.js' type='text/javascript'></script>
+
+
+<div class="container">
+<h2>Word Count Stats</h2>
+
+<div class="row">
+  <div id="yearly-bubble-chart" class="dc-chart">
+    <strong>Yearly Performance</strong>
+    <a class="reset" href="javascript:yearlyBubbleChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="row">
+    <!-- <div id="gain-loss-chart">
+        <strong>Days by Gain/Loss</strong>
+        <a class="reset" href="javascript:gainOrLossChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+        <div class="clearfix"></div>
+    </div> -->
+
+    <div id="quarter-chart">
+        <strong>Quarters</strong>
+        <a class="reset" href="javascript:quarterChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div id="day-of-week-chart">
+        <strong>Day of Week</strong>
+        <a class="reset" href="javascript:dayOfWeekChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <!-- <div id="fluctuation-chart">
+        <strong>Days by Fluctuation(%)</strong>
+        <a class="reset" href="javascript:fluctuationChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+        <div class="clearfix"></div>
+    </div> -->
+</div>
+
+<div class="row">
+    <div id="leader-row-chart">
+        <strong>Leader Chart</strong>
+        <a class="reset" href="javascript:leaderRowChart.filterAll();dc.redrawAll();"
+           style="display: none;">reset</a>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div id="monthly-volume-chart">
+    </div>
+    <p class="muted pull-right" style="margin-right: 15px;">select a time range to zoom in</p>
+</div>
+
+<div class="row">
+    <div>
+        <div class="dc-data-count">
+            <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+        </div>
+    </div>
+    <table class="table table-hover dc-data-table">
+        <thead>
+        <tr class="header">
+            <th>Student</th>
+            <th>No of Documents</th>
+            <th>Word Count</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+/*var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];*/
+
+var dayOfWeekChart = dc.rowChart("#day-of-week-chart");
+var leaderRowChart = dc.rowChart("#leader-row-chart");
+var quarterChart = dc.pieChart("#quarter-chart");
+var yearlyBubbleChart = dc.bubbleChart("#yearly-bubble-chart");
+
+// set dc.js version in title
+d3.selectAll("#version").text(dc.version);
+
+// load data from a csv file
+/*d3.csv("ndx.csv", function (data) {*/
+d3.json("/api/scholar_word_count", function(error, data) {
+
+  var dateFormat = d3.time.format("%Y-%m-%d");
+  var numberFormat = d3.format(".2f");
+
+  data.forEach(function (e) {
+      e.dd = dateFormat.parse(e.last_update.substr(0,10));
+      e.month = d3.time.month(e.dd); // pre-calculate month for better performance
+  });
+
+  /*console.log(data);*/
+
+  // feed it through crossfilter
+  var ndx = crossfilter(data);
+  var all = ndx.groupAll();
+
+  var monthDimension = ndx.dimension(function (d) {
+      return d.month;
+  });
+
+// console.log(monthlyDimension.top(Infinity));
+
+  var monthGroup = monthDimension.group().reduce(
+          //add
+          function (p, v) {
+            ++p.count;
+            p.totalWordCount += +v.word_count;
+
+            if (v.google_doc_id in p.doc_ids){
+                // p.doc_ids[v.google_doc_id] += 1
+            }
+            else{
+                p.doc_ids[v.google_doc_id] = 1;
+                p.totalDocuments++;
+            }
+
+            // console.log(p.doc_ids);
+
+            return p;
+          },
+          //remove
+          function (p, v) {
+              --p.count;
+              p.totalWordCount -= +v.word_count;
+
+              p.doc_ids[v.google_doc_id]--;
+              if(p.doc_ids[v.google_doc_id] === 0){
+                  delete p.doc_ids[v.google_doc_id];
+                  p.totalDocuments--;
+              }
+
+              return p;
+          },
+          //init
+          function () {
+              return {totalWordCount: 0, totalDocuments: 0, doc_ids: {} };
+          }
+  );
+
+  var minDate = monthDimension.bottom(1)[0].month;
+  var maxDate = monthDimension.top(1)[0].month;
+  var maxY = d3.max(monthGroup.all(), function(d) { return d.value.totalWordCount + d.value.totalDocuments*2; })
+
+  yearlyBubbleChart
+    .width(990)
+    .height(300)
+    .margins({top: 10, right: 50, bottom: 30, left: 40})
+    .dimension(monthDimension)
+    .group(monthGroup)
+    .transitionDuration(1500)
+    .colors(["#a60000", "#ff0000", "#ff4040", "#ff7373", "#67e667", "#39e639", "#00cc00"])
+    /*.colorDomain([-12000, 12000])*/
+    .keyAccessor(function (p) { return p.key; })
+    .valueAccessor(function (p) { return p.value.totalWordCount; })
+    .radiusValueAccessor(function (p) { return p.value.totalDocuments; })
+    .maxBubbleRelativeSize(0.3)
+    .x(d3.time.scale().domain([minDate, maxDate]))
+    .y(d3.scale.linear().domain([-20, maxY]))
+    .r(d3.scale.linear().domain([0, 1000]))
+    .elasticY(true)
+    /*.yAxisPadding(100)*/
+    .elasticX(true)
+    /*.xAxisPadding(500)*/
+    .renderHorizontalGridLines(true)
+    .renderVerticalGridLines(true)
+    .renderLabel(true)
+    .renderTitle(true)
+    .label(function (p) {
+        return p.key.getFullYear();
+    })
+    .title(function (p) {
+        return p.key
+                + "\n"
+                + "Number of Documents: " + p.value.totalDocuments + "\n"
+                + "Total Word Count: " + p.value.totalWordCount + "\n";
+    })
+    .yAxis().tickFormat(function (v) {
+        return v ;
+    });
+
+    var emailDimension = ndx.dimension(function (d) {
+        return d.email;
+    });
+
+    var emailGroup = emailDimension.group().reduce(
+      //add
+      function (p, v) {
+        ++p.count;
+        p.studentName = v.student_name;
+        p.totalWordCount += +v.word_count;
+
+        if (v.google_doc_id in p.doc_ids){
+            // p.doc_ids[v.google_doc_id] += 1
+        }
+        else{
+            p.doc_ids[v.google_doc_id] = 1;
+            p.totalDocuments++;
+        }
+        return p;
+      },
+      //remove
+      function (p, v) {
+        --p.count;
+        p.studentName = v.student_name;
+        p.totalWordCount -= +v.word_count;
+        p.doc_ids[v.google_doc_id]--;
+        if(p.doc_ids[v.google_doc_id] === 0){
+          delete p.doc_ids[v.google_doc_id];
+          p.totalDocuments--;
+        }
+        return p;
+      },
+      //init
+      function () {
+        return {totalWordCount: 0, totalDocuments: 0, doc_ids: {} };
+      }
+    );
+
+  dc.dataTable(".dc-data-table")
+    .dimension(emailGroup)
+    .group(function(d) {return "";})
+    .size(10)
+    .columns([
+      function (d) { return d.value.studentName; },
+      function (d) { return +d.value.totalDocuments; },
+      function (d) { return +d.value.totalWordCount; }
+    ])
+    .sortBy( function (d) { return -1*d.value.totalWordCount; })
+    .order(d3.ascending)
+    .renderlet(function (table) {
+      table.selectAll(".dc-table-group").classed("info", true);
+    });
+
+  var quarter = ndx.dimension(function (d) {
+      var month = d.dd.getMonth();
+      if (month <= 3)
+          return "Q1";
+      else if (month > 3 && month <= 5)
+          return "Q2";
+      else if (month > 5 && month <= 7)
+          return "Q3";
+      else
+          return "Q4";
+  });
+
+  var quarterGroup = quarter.group().reduceSum(function (d) {
+      return d.totalWordCount;
+  });
+
+  quarterChart
+    .width(180)
+    .height(180)
+    .radius(80)
+    .innerRadius(30)
+    .dimension(quarter)
+    .group(quarterGroup);
+
+
+  var dayOfWeek = ndx.dimension(function (d) {
+    var day = d.dd.getDay();
+    switch (day) {
+      case 0: return "0.Sun";
+      case 1: return "1.Mon";
+      case 2: return "2.Tue";
+      case 3: return "3.Wed";
+      case 4: return "4.Thu";
+      case 5: return "5.Fri";
+      case 6: return "6.Sat";
+    }
+  });
+
+  var dayOfWeekGroup = dayOfWeek.group();
+
+  dayOfWeekChart.width(180)
+    .height(180)
+    .margins({top: 20, left: 10, right: 10, bottom: 20})
+    .group(dayOfWeekGroup)
+    .dimension(dayOfWeek)
+    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
+    .label(function (d){
+        return d.key.split(".")[1];
+    })
+    .xAxis().ticks(4);
+
+    console.log("emailGroup");
+    console.log(emailGroup.top(Infinity));
+
+leaderRowChart
+  .width(990)
+  .height(1000)
+  .margins({ top: 5, left: 10, right: 10, bottom: 20 })
+  .dimension(emailDimension)
+  .group(emailGroup)
+  .label(function (d) { return d.value.studentName; })
+  .title(function (d) { return d.value.totalWordCount; })
+  .valueAccessor(function (d) { return d.value.totalWordCount; })
+  /*.ordering(function(d) { return -d.value.totalWordCount })*/
+  /*.rowsCap(4)*/
+  /*.othersGrouper(false)*/
+  .xAxis().ticks(4);
+
+  /*leaderRowChart.cap(10)*/
+
+
+    dc.renderAll();
+
+
+  }
+);
+</script>
+
+<div class="clearfix"></div>
+
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="http://jun9.github.io/dc.js/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    SyntaxHighlighter.all();
+</script>
+
+</body>
+</html>

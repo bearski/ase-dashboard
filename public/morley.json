@@ -1,0 +1,10 @@
+[
+  {"grade": 8, "category": "Math", "rating": 4},
+  {"grade": 8, "category": "English", "rating": 3},
+  {"grade": 8, "category": "Math", "rating": 1},
+  {"grade": 8, "category": "Math", "rating": 3},
+  {"grade": 8, "category": "Science", "rating": 1},
+  {"grade": 9, "category": "Science", "rating": 2},
+  {"grade": 9, "category": "Science", "rating": 5},
+  {"grade": 9, "category": "English", "rating": 5}
+]

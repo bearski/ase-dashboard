@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+  <script src='js/queue.js' type='text/javascript'></script>
+  <script src='js/d3.js' type='text/javascript'></script>
+  <script src='js/crossfilter.js' type='text/javascript'></script>
+  <script src='js/dc.js' type='text/javascript'></script>
+  <script src='js/jquery-2.2.4.min.js' type='text/javascript'></script>
+  <script src='js/bootstrap.min.js' type='text/javascript'></script>
+
+  <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <link href='css/dc.css' rel='stylesheet' type='text/css'>
+
+  <script src='js/khan_points.js' type='text/javascript'></script>
+  <script src='js/leaderboard_word_count.js' type='text/javascript'></script>
+  <script src='js/student_pages_read.js' type='text/javascript'></script>
+
+</head>
+
+<body>
+  <div class='container' id='main-container'>
+    <h2>ASE Leaderboard</h2>
+    <div class='content'>
+      <!--  -->
+      <div class='container' style='font: 10px sans-serif;'>
+        <h2>Pages Read (from Book Reviews)</h2>
+        <div class='row-fluid'>
+          <div id="pagesReadRowChart">
+            <h4>Pages Read Per Grade</h4>
+            <div>
+              <a class='reset'
+              href='javascript:pagesReadRowChart.filterAll();dc.redrawAll();'
+              style='visibility: hidden;'>reset</a>
+            </div>
+          </div>
+
+          <!-- <div id="pagesReadCountBarChart">
+            <h4>Pages Read Per Grade</h4>
+            <div>
+              <a class='reset'
+              href='javascript:pagesReadCountBarChart.filterAll();dc.redrawAll();'
+              style='visibility: hidden;'>reset</a>
+            </div>
+          </div> -->
+
+          <div class='row-fluid'>
+            <table class='table table-hover dc-data-table' id='pagesReadEmailDataTable'>
+              <thead>
+                <tr class='header'>
+                  <th>Student</th>
+                  <th>Pages Read</th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <div class='container' style='font: 10px sans-serif;'>
+        <h2>Khan Points</h2>
+        <div class='row-fluid'>
+          <div id="grade-row-chart">
+            <h4>Points Per Grade</h4>
+            <div>
+              <a class='reset'
+              href='javascript:gradeRowChart.filterAll();dc.redrawAll();'
+              style='visibility: hidden;'>reset</a>
+            </div>
+          </div>
+
+          <div class='row-fluid'>
+            <table class='table table-hover dc-data-table' id='email-data-table'>
+              <thead>
+                <tr class='header'>
+                  <th>Student</th>
+                  <th>Points</th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      <div class='container' style='font: 10px sans-serif;'>
+        <h2>Word Count</h2>
+        <div class='row-fluid'>
+          <div id="wordCountGradeRowChart">
+            <h4>Word Count Per Grade</h4>
+            <div>
+              <a class='reset'
+              href='javascript:wordCountGradeRowChart.filterAll();dc.redrawAll();'
+              style='visibility: hidden;'>reset</a>
+            </div>
+          </div>
+
+
+          <div id="leaderRowChart">
+            <h4>Top 15 Word Count</h4>
+            <div>
+              <a class='reset'
+              href='javascript:leaderRowChart.filterAll();dc.redrawAll();'
+              style='visibility: hidden;'>reset</a>
+            </div>
+          </div>
+
+
+          <div class='row-fluid'>
+            <h4>Student Word Count</h4>
+            <table class='table table-hover dc-data-table' id='emailDataTable'>
+              <thead>
+                <tr class='header'>
+                  <th>Student</th>
+                  <th>Document</th>
+                  <th>Grade</th>
+                  <th>Word Count</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+
+    </div>
+  </div>
+</body>
+
+</html>
