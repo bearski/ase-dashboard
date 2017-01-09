@@ -1,7 +1,7 @@
 
 var Subjects = require('./models/SubjectViews');
 const pg = require('pg');
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.ASE_DATABASE_URL;
 
 
 module.exports = function(app) {
