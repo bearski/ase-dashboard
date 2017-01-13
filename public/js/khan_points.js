@@ -11,8 +11,8 @@ function makeGraphs(error, data) {
 
   // console.log(data);
 
-  emailDataTable = dc.dataTable('#email-data-table');
-  gradeRowChart = dc.rowChart('#grade-row-chart');
+  khanDataTable = dc.dataTable('#khanDataTable');
+  khanRowChart = dc.rowChart('#khanRowChart');
 
   var DTSformat = d3.time.format("%Y-%m-%d");
 
@@ -46,8 +46,8 @@ function makeGraphs(error, data) {
     });
 
 
-  gradeRowChart
-    .width(800)
+  khanRowChart
+    .width(400)
     .height(200)
     .margins({top: 20, left: 10, right: 10, bottom: 20})
     .dimension(gradeDimension)
@@ -65,8 +65,8 @@ function makeGraphs(error, data) {
     .ticks(4);
 
 
-  emailDataTable
-    .width("100pct")
+  khanDataTable
+    .width(400)
     .height(200)
     .dimension(emailDimension)
     .size(10)

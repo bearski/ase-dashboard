@@ -130,8 +130,8 @@ function makeGraphs(error, data) {
     // });
 
   wordCountGradeRowChart
-    .width(800)
-    .height(200)
+    .width(400)
+    .height(250)
     .margins({top: 20, left: 10, right: 10, bottom: 20})
     .dimension(gradeDimension)
     .group(gradeGroup)
@@ -150,7 +150,7 @@ function makeGraphs(error, data) {
 
   leaderRowChart
     .width(600)
-    .height(300)
+    .height(250)
     .margins({
       top: 0,
       right: 10,

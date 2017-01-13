@@ -9,7 +9,6 @@ function makeGraphs(error, data) {
 
   pagesReadEmailDataTable = dc.dataTable('#pagesReadEmailDataTable');
   pagesReadRowChart = dc.rowChart('#pagesReadRowChart');
-  // pagesReadCountBarChart = dc.barChart('#pagesReadCountBarChart');
 
   var DTSformat = d3.time.format("%Y-%m-%d");
 
@@ -51,31 +50,34 @@ function makeGraphs(error, data) {
     function (p, d) {
       ++p.count;
       p.totalPagesRead += +d.page_count;
+      p.averagePagesRead = (p.totalPagesRead/p.count);
       return p;
     },
     function (p, d) {
       --p.count;
       p.totalPagesRead -= +d.page_count;
+      p.averagePagesRead = (p.totalPagesRead/p.count);
       return p;
     },
     function () {
       return {
         count: 0,
         totalPagesRead: 0,
+        averagePagesRead: 0
       };
     });
 
 
   pagesReadRowChart
-    .width(800)
+    .width(400)
     .height(200)
     .margins({top: 20, left: 10, right: 10, bottom: 20})
     .dimension(gradeDimension)
     .group(gradeGroup)
-    .valueAccessor(function(d) { return d.value.totalPagesRead; })
-    .ordering(function(d) { return -d.value.totalPagesRead })
+    .valueAccessor(function(d) { return d.value.averagePagesRead; })
+    .ordering(function(d) { return -d.value.averagePagesRead })
     .label(function(d) {
-      return 'Total Pages Read for Grade ' +
+      return 'Average Pages Read for Grade ' +
         d.key + ': ' +
         d.value.totalPagesRead + ' (' +
         d.value.count + ' students)';
@@ -84,16 +86,6 @@ function makeGraphs(error, data) {
     .xAxis()
     .ticks(4);
 
-  // pagesReadCountBarChart
-  //   .width(768)
-  //   .height(480)
-  //   .x(d3.scale.linear().domain([0,12]))
-  //   .brushOn(false)
-  //   .yAxisLabel("Word Count")
-  //   .xAxisLabel("Grade")
-  //   .dimension(gradeDimension)
-  //   .group(gradeGroup)
-  //   .valueAccessor(function(d) { return d.value.totalPagesRead; });
 
   pagesReadEmailDataTable
     .width("100pct")
