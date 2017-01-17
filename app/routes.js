@@ -1,5 +1,5 @@
 
-var Subjects = require('./models/SubjectViews');
+// var Subjects = require('./models/SubjectViews');
 const pg = require('pg');
 const connectionString = process.env.ASE_DATABASE_URL;
 
@@ -34,22 +34,6 @@ module.exports = function(app) {
 
      // SQL Query > Select Data
    const query = client.query(
-    //  'select category, question, grade_7, grade_8, grade_9, grade_10, submission_date, user_email ' +
-    //  'from fn_get_fact_maf_response( id_role => 2 )'
-    //  ' from fn_fact_maf_response( id_role => 2 ) '
-    // 'select distinct ' +
-    // '	cr.grade::int grade, mr.date::timestamp::date sub_date, ' +
-    // '	h.email, 	cat.name category, q.text_report question, ' +
-    // '	l.value likert_value, cat.id id_category ' +
-    // 'from   maf_response mr ' +
-    // '	inner join human h on h.id = mr.id_human ' +
-    // '	inner join human_classroom hcr on hcr.id_human = h.id ' +
-    // '	inner join classroom cr on cr.id = hcr.id_classroom ' +
-    // '	inner join maf_question q on q.id = mr.id_maf_question ' +
-    // '	inner join likert_item l on l.id = mr.id_likert_item ' +
-    // '	inner join maf_question_category cat on cat.id = q.id_maf_question_category ' +
-    // 'where h.id_ase_role = 2 '
-
     'select  cat.name category, q.text_report question, coalesce(cr.grade, $$0$$)::int grade, ' +
     ' li.value likert_value, additional_answer, h.email, ' +
     ' mr.date::timestamp::date sub_date, , cat.id id_category ' +
@@ -61,8 +45,6 @@ module.exports = function(app) {
     '	left join classroom cr on cr.id = hcr.id_classroom ' +
     '	left join likert_item li on li.id = mr.id_likert_item ' +
     'where h.id_ase_role = 2 '
-
-
      );
      // Stream results back one row at a time
      query.on('row', (row) => {
