@@ -155,7 +155,7 @@ module.exports = function(app) {
 
  // frontend routes =========================================================
  app.get('*', function(req, res) {
-  res.sendFile('./public/login.html');
+  res.sendfile('./public/login.html');
  });
 
 }

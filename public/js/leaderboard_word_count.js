@@ -18,22 +18,13 @@ function makeGraphs(error, data) {
   // charts
   emailDataTable = dc.dataTable("#emailDataTable");
   leaderRowChart = dc.rowChart("#leaderRowChart");
-  // wordCountPieChart = dc.pieChart('#wordCountPieChart');
-  // wordCountBarChart = dc.barChart("#wordCountBarChart");
   wordCountGradeRowChart = dc.rowChart('#wordCountGradeRowChart');
-
-
-  // var leaderDataTable = dc.dataTable("#leaderDataTable");
-
-  // var matrixDataTable = dc.dataTable("#matrixDataTable");
-  // var matrixQuestionDataTable = dc.dataTable("#matrixQuestionDataTable");
-  // var monthBarChart = dc.barChart("#submissions-per-month");
-  // var questionRowChart = dc.rowChart("#questionRowChart");
 
 
   // Make sure date is parsed based on specific format (2014-04-25)
   var DTSformat = d3.time.format("%Y-%m-%d");
   var numberFormat = d3.format(".2f");
+
 
   // set up data
   data.forEach(function(d) {
@@ -44,11 +35,6 @@ function makeGraphs(error, data) {
   // console.log(data);
 
   var ndx = crossfilter(data);
-  // var all = ndx.groupAll();
-
-  // Updated version
-  // dc.dataCount(".dc-data-count").dimension(ndx).group(all);
-
 
   var emailDimemsion = ndx.dimension(function(d) { return d.email; });
 
@@ -97,37 +83,26 @@ function makeGraphs(error, data) {
     });
 
 
-  // console.log('emailDimemsion');
-  // console.log(emailDimemsion.top(10));
+  function remove_empty_bins(source_group) {
+      function non_zero_pred(d) {
+          return (d.value.totalWordCount || 0) != 0;
+      }
+      return {
+          all: function () {
+              return source_group.all().filter(non_zero_pred);
+          },
+          top: function(n) {
+              return source_group.top(Infinity)
+                  .filter(non_zero_pred)
+                  .slice(0, n);
+          }
+      };
+  }
 
-  //
-  // wordCountPieChart
-  //   .width(280)
-  //   .height(280)
-  //   .radius(125)
-  //   .innerRadius(40)
-  //   .dimension(gradeDimension)
-  //   .group(gradeGroup)
-  //   .valueAccessor(function(d) { return d.value.count; })
-  //   .label(function(d) {
-  //     return 'Grade ' + d.key + ' (' + d.value.count + ' students)';
-  //   });
 
+  var filteredEmailGroup = remove_empty_bins(emailGroup);
 
-  // wordCountBarChart
-  //   .width(768)
-  //   .height(480)
-  //   .x(d3.scale.linear().domain([6,20]))
-  //   .brushOn(false)
-  //   .yAxisLabel("Word Count")
-  //   .dimension(gradeDimension)
-  //   .group(gradeGroup)
-  //   .valueAccessor(function(d) { return d.value.totalWordCount; });
-    // .on('renderlet', function(chart) {
-    //     chart.selectAll('rect').on("click", function(d) {
-    //         console.log("click!", d);
-    //     });
-    // });
+  console.log(filteredEmailGroup.top(10));
 
   wordCountGradeRowChart
     .width(400)
@@ -151,26 +126,17 @@ function makeGraphs(error, data) {
   leaderRowChart
     .width(600)
     .height(250)
-    .margins({
-      top: 0,
-      right: 10,
-      bottom: 20,
-      left: 5
-    })
+    .margins({ top: 0, right: 10, bottom: 20, left: 5 })
     .dimension(emailDimemsion)
-    .group(emailGroup)
+    .group(filteredEmailGroup)
     .elasticX(true)
-    .valueAccessor(function(d) {
-      return +d.value.totalWordCount;
-    })
+    .valueAccessor(function(d) { return +d.value.totalWordCount; })
     .rowsCap(15)
     .othersGrouper(false)
     .label(function(d) {
       return (d.value.studentName + ": " + d.value.totalWordCount);
     })
-    .ordering(function(d) {
-      return -d.value.totalWordCount
-    })
+    .ordering(function(d) { return -d.value.totalWordCount })
     .xAxis()
     .ticks(5);
 

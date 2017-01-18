@@ -272,6 +272,7 @@ function makeGraphs(error, data) {
 
 
   var filteredQuestionGroup = remove_empty_question(questionGroup);
+
   var pseudoQuestionDimension = {
     top: function(x) {
       return filteredQuestionGroup.all().map(function(grp) {
