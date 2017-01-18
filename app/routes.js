@@ -31,20 +31,10 @@ module.exports = function(app) {
        console.log(err);
        return res.status(500).json({success: false, data: err});
      }
-
-     // SQL Query > Select Data
-   const query = client.query(
-    'select  cat.name category, q.text_report question, coalesce(cr.grade, $$0$$)::int grade, ' +
-    ' li.value likert_value, additional_answer, h.email, ' +
-    ' mr.date::timestamp::date sub_date, , cat.id id_category ' +
-    'from maf_response mr ' +
-    '	inner join maf_question q on q.id = mr.id_maf_question ' +
-    '	inner join maf_question_category cat on cat.id = q.id_maf_question_category ' +
-    '	inner join human h on h.id = mr.id_human ' +
-    '	left join human_classroom hcr on hcr.id_human = h.id ' +
-    '	left join classroom cr on cr.id = hcr.id_classroom ' +
-    '	left join likert_item li on li.id = mr.id_likert_item ' +
-    'where h.id_ase_role = 2 '
+       // SQL Query > Select Data
+     const query = client.query(
+       'select id_human, response_date, id_question, category, question, score, grade ' +
+       'from fn_get_maf_response($$SLA$$)'
      );
      // Stream results back one row at a time
      query.on('row', (row) => {
@@ -69,7 +59,6 @@ module.exports = function(app) {
        console.log(err);
        return res.status(500).json({success: false, data: err});
      }
-
      // SQL Query > Select Data
    const query = client.query(
     'select id_human, response_date, id_question, category, question, score, grade ' +
