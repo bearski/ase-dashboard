@@ -1,6 +1,7 @@
 queue()
-// .defer(d3.json, "/api/maf_response_student")
-    .defer(d3.json, "maf_response_student.json").await(makeGraphs);
+  .defer(d3.json, "/api/maf_response_student")
+// .defer(d3.json, "maf_response_student.json")
+  .await(makeGraphs);
 
 var monthNames = [
     "January", "February", "March", "April", "May",

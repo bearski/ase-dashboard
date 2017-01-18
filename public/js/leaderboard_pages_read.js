@@ -1,6 +1,6 @@
 queue()
-  // .defer(d3.json, "/api/scholar_page_count")
-  .defer(d3.json, "pages_read.json")
+  .defer(d3.json, "/api/scholar_page_count")
+  // .defer(d3.json, "pages_read.json")
   .await(makeGraphs);
 
 function makeGraphs(error, data) {
