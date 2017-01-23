@@ -155,11 +155,10 @@ module.exports = function(app) {
 
  // frontend routes =========================================================
  app.get('*', function(req, res) {
-  res.sendfile('./public/login.html');
+  // res.sendfile('./public/login.html');
+  res.sendfile('./public/leaderboard_student.html');
  });
-
 }
-
 
 
  // app.get('/', function(req, res) {

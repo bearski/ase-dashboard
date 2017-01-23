@@ -47,7 +47,7 @@
 		{
 			display: inline-block;
 		}
-		
+
 			.image img
 			{
 				display: block;
@@ -60,20 +60,20 @@
 				width: 100%;
 				margin: 0 0 2em 0;
 			}
-			
+
 			.image.full
 			{
 				display: block;
 				width: 100%;
 				margin: 0 0 2em 0;
 			}
-			
+
 			.image.left
 			{
 				float: left;
 				margin: 0 2em 2em 0;
 			}
-			
+
 			.image.centered
 			{
 				display: block;
@@ -104,7 +104,7 @@
 	header .byline
 	{
 	}
-	
+
 /*********************************************************************************/
 /* Icons                                                                         */
 /* Powered by Font Awesome by Dave Gandy | http://fontawesome.io                 */
@@ -119,7 +119,7 @@
 		.fa.solo
 		{
 		}
-		
+
 			.fa.solo span
 			{
 				display: none;
@@ -532,7 +532,7 @@
 		.fa-wheelchair:before{content:"\f193"}
 		.fa-vimeo-square:before{content:"\f194"}
 		.fa-turkish-lira:before,.fa-try:before{content:"\f195"}
-	
+
 
 /** LIST STYLE 1 */
 
@@ -624,7 +624,7 @@ ul.style3 .first {
 /** BUTTON STYLE */
 
 	/* Buttons */
-		
+
 		.button
 		{
 			position: relative;
@@ -686,7 +686,7 @@ ul.style3 .first {
 		padding: 5em 0em;
 		background: #FFF
 	}
-	
+
 	#content header
 	{
 		margin-bottom: 2em !important;
@@ -701,7 +701,7 @@ ul.style3 .first {
 	#content
 	{
 	}
-	
+
 	#footer
 	{
 		padding: 5em 0em;
@@ -711,28 +711,123 @@ ul.style3 .first {
 /*********************************************************************************/
 /* Copyright                                                                     */
 /*********************************************************************************/
-	
+
 	#copyright
 	{
 		position: relative;
 		text-align: center;
 	}
-	
+
 	#copyright .container
 	{
 		padding: 3em 0em;
 		border-top: 1px solid;
 		border-color: rgba(0,0,0,.1);
 	}
-	
+
 	#copyright a
 	{
 		text-decoration: none;
 	}
-	
-	
+
+
 	#main
 	{
 		padding: 5em 0em;
 		background: #FFF
+	}
+
+
+	#pg-12-0,
+	#pg-12-1,
+	#pg-12-2,
+	#pg-12-3,
+	#pg-12-8,
+	#pg-12-9,
+	#pl-12 .panel-grid-cell .so-panel:last-child {
+		margin-bottom: 0px
+	}
+
+	#pg-12-0 .panel-grid-cell,
+	#pg-12-2 .panel-grid-cell,
+	#pg-12-3 .panel-grid-cell,
+	#pg-12-5 .panel-grid-cell,
+	#pg-12-6 .panel-grid-cell,
+	#pg-12-7 .panel-grid-cell,
+	#pg-12-8 .panel-grid-cell,
+	#pg-12-9 .panel-grid-cell {
+		float: none
+	}
+
+	#pgc-12-1-0 {
+		width: 66.654%
+	}
+
+	#pgc-12-1-1 {
+		width: 33.346%
+	}
+
+	#pg-12-1 .panel-grid-cell,
+	#pg-12-4 .panel-grid-cell {
+		float: left
+	}
+
+	#pgc-12-4-0 {
+		width: 59.981%
+	}
+
+	#pgc-12-4-1 {
+		width: 40.019%
+	}
+
+	#pg-12-4,
+	#pg-12-5,
+	#pg-12-6,
+	#pg-12-7,
+	#pl-12 .panel-grid-cell .so-panel {
+		margin-bottom: 30px
+	}
+
+	#pg-12-0,
+	#pg-12-1,
+	#pg-12-3,
+	#pg-12-4,
+	#pg-12-5,
+	#pg-12-6,
+	#pg-12-7 {
+		margin-left: -15px;
+		margin-right: -15px
+	}
+
+	#pg-12-0 .panel-grid-cell,
+	#pg-12-1 .panel-grid-cell,
+	#pg-12-3 .panel-grid-cell,
+	#pg-12-4 .panel-grid-cell,
+	#pg-12-5 .panel-grid-cell,
+	#pg-12-6 .panel-grid-cell,
+	#pg-12-7 .panel-grid-cell {
+		padding-left: 15px;
+		padding-right: 15px
+	}
+
+	@media (max-width:780px) {
+		#pg-12-0 .panel-grid-cell,
+		#pg-12-1 .panel-grid-cell,
+		#pg-12-2 .panel-grid-cell,
+		#pg-12-3 .panel-grid-cell,
+		#pg-12-4 .panel-grid-cell,
+		#pg-12-5 .panel-grid-cell,
+		#pg-12-6 .panel-grid-cell,
+		#pg-12-7 .panel-grid-cell,
+		#pg-12-8 .panel-grid-cell,
+		#pg-12-9 .panel-grid-cell {
+			float: none;
+			width: auto
+		}
+		#pgc-12-1-0,
+		#pgc-12-4-0 {
+			margin-bottom: 30px
+		}
+		#pl-12 .panel-grid,
+		#pl-12 .panel-grid-cell {}
 	}	
