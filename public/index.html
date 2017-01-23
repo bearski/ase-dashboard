@@ -3,12 +3,20 @@
 
 <head>
   <meta charset='utf-8'>
+  <script src='js/deps/queue.js' type='text/javascript'></script>
+  <script src='js/deps/d3.js' type='text/javascript'></script>
+  <script src='js/deps/crossfilter.js' type='text/javascript'></script>
+  <script src='js/deps/dc.js' type='text/javascript'></script>
   <script src='js/deps/jquery-2.2.4.min.js' type='text/javascript'></script>
   <script src='js/deps/bootstrap.min.js' type='text/javascript'></script>
 
   <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>
     <link href='css/bootstrap-theme.min.css' rel='stylesheet' type='text/css'>
   <link href='css/dc.css' rel='stylesheet' type='text/css'>
+
+  <script src='js/leaderboard_khan_points.js' type='text/javascript'></script>
+  <script src='js/leaderboard_pages_read.js' type='text/javascript'></script>
+  <script src='js/leaderboard_word_count.js' type='text/javascript'></script>
 
 </head>
 <body>
@@ -63,6 +71,93 @@
     </nav>
 
 
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+
+  <div class='container' id='main-container'>
+    <div class='content'>
+      <div class='container' style='font: 10px sans-serif;'>
+        <h3>ASE Student Leaderboard</h3>
+        <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+
+        <div class='row-fluid'>
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-6"  id='khanRowChart'>
+                <h4>Khan Points</h4>
+              </div>
+
+              <div class="col-sm-6" id='pagesReadRowChart'>
+                <h4>Pages Read</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='row-fluid'>
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-6" >
+                <div>
+                  <h4>Top 10 Students</h4>
+                  <table class='table table-hover dc-data-table' id='khanDataTable'>
+                    <thead>
+                      <tr class='header'>
+                        <th>Student</th>
+                        <th>Points</th>
+                        <th>Grade</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-sm-6" >
+                <div>
+                  <h4>Top 10 Students</h4>
+                  <table class='table table-hover dc-data-table' id='pagesReadEmailDataTable'>
+                    <thead>
+                      <tr class='header'>
+                        <th>Student</th>
+                        <th>Page Count</th>
+                        <th>Grade</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='row-fluid'>
+          <div class="col-sm-12">
+            <h4>Word Count</h4>
+            <div class="row">
+              <div class="col-sm-6" id='wordCountGradeRowChart'></div>
+              <div class="col-sm-6"  id='leaderRowChart'></div>
+            </div>
+          </div>
+        </div>
+
+        <div class='row-fluid'>
+          <div class="col-sm-12">
+            <table class='table table-hover dc-data-table' id='emailDataTable'>
+              <thead>
+                <tr class='header'>
+                  <th>Student</th>
+                  <th>Document Name</th>
+                  <th>Grade</th>
+                  <th>Word Count</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
