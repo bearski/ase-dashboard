@@ -102,7 +102,6 @@ function makeGraphs(error, data) {
 
   var filteredEmailGroup = remove_empty_bins(emailGroup);
 
-  console.log(filteredEmailGroup.top(10));
 
   wordCountGradeRowChart
     .width(400)
