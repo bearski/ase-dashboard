@@ -109,8 +109,7 @@ module.exports = function(app) {
 
       // SQL Query > Select Data
       const query = client.query(
-        'select student_name, email, coalesce(grade, 0) grade, section,' +
-        'activity_date, points ' +
+        'select student_name, grade, activity_date, points, points_increase, points_per_date '  +
         'from fn_get_khan_points()'
       );
       // Stream results back one row at a time
