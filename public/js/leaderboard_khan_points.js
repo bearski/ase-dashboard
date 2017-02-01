@@ -41,17 +41,31 @@ function makeGraphs(error, data) {
     function (p, d) {
       ++p.count;
       p.totalPoints += +d.points_per_date;
+      if(d.student_name in p.student_names){
+          p.student_names[d.student_name] += 1
+      }
+      else{
+          p.student_names[d.student_name] = 1;
+          p.student_count++;
+      }
       return p;
     },
     function (p, d) {
       --p.count;
       p.totalPoints -= +d.points_per_date;
+      p.student_names[d.student_name]--;
+      if(p.student_names[d.student_name] === 0){
+        delete p.student_names[d.student_name];
+        p.student_count--;
+      }
       return p;
     },
     function () {
       return {
         count: 0,
         totalPoints: 0,
+        student_names: {},
+        student_count: 0
       };
     });
 
@@ -70,7 +84,7 @@ function makeGraphs(error, data) {
       return 'Total Points for Grade ' +
         d.key + ': ' +
         d.value.totalPoints + ' (' +
-        d.value.count + ' students)';
+        d.value.student_count + ' students)';
     })
     .elasticX(true)
     .xAxis()
