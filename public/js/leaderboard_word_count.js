@@ -22,13 +22,13 @@ function makeGraphs(error, data) {
 
 
   // Make sure date is parsed based on specific format (2014-04-25)
-  var DTSformat = d3.time.format("%Y-%m-%d");
+  var dateFormat = d3.time.format("%Y-%m-%d");
   var numberFormat = d3.format(".2f");
-
+  var monthNameYearFormat = d3.time.format("%B %Y");
 
   // set up data
   data.forEach(function(d) {
-    d.t = DTSformat.parse(d.last_update.substr(0, 10));
+    d.t = dateFormat.parse(d.last_update.substr(0, 10));
     d.month = d3.time.month(d.t);
   });
 
@@ -36,7 +36,14 @@ function makeGraphs(error, data) {
 
   var ndx = crossfilter(data);
 
+  var dateDimension = ndx.dimension(function(d) { return d.month; });
+
   var emailDimemsion = ndx.dimension(function(d) { return d.email; });
+
+  var dateGroup = dateDimension.group().reduceSum(function(d) {
+      return +d.word_count;
+  });
+
 
   var emailGroup = emailDimemsion.group().reduce(
     function (p, d) {
@@ -99,7 +106,6 @@ function makeGraphs(error, data) {
       };
   }
 
-
   var filteredEmailGroup = remove_empty_bins(emailGroup);
 
 
@@ -154,6 +160,28 @@ function makeGraphs(error, data) {
     ])
     .sortBy(function(d) { return d.student_name; })
     .order(d3.ascending);
+
+    dateSelectField = dc.selectMenu('#wordsDateSelectField')
+      .dimension(dateDimension)
+      .group(dateGroup);
+
+    dateSelectField
+      .title(function(d) {
+        return monthNameYearFormat(d.key);
+      });
+
+
+    var oldHandler = dateSelectField.filterHandler();
+    dateSelectField.filterHandler(
+      function(dimension, filters) {
+        var parseFilters = filters.map(
+          function(d) {
+            return new Date(d);
+          })
+          oldHandler(dimension, parseFilters);
+          return filters;
+        });
+
 
   dc.renderAll();
 }

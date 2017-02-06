@@ -6,11 +6,6 @@ var monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
-function debug(stuff) {
-    if (typeof console != "undefined") {
-        console.log(stuff);
-    }
-}
 
 function makeGraphs(error, data) {
 
@@ -32,7 +27,7 @@ function makeGraphs(error, data) {
   });
 
   // console.log("data");
-  // console.log(data);
+  console.log(data);
 
   // --- Assign Colour to Categories ---
   var colorScale = d3.scale.ordinal().domain([
@@ -52,6 +47,7 @@ function makeGraphs(error, data) {
   ]);
 
   var ndx = crossfilter(data);
+  var all = ndx.groupAll();
 
   var categoryDim = ndx.dimension(function(d) {
       return d.category;
@@ -152,7 +148,6 @@ function makeGraphs(error, data) {
   var questionDim = ndx.dimension(function(d) {
       return d.question;
   });
-
 
   var questionGroup = questionDim.group().reduce(
     //add
@@ -270,7 +265,6 @@ function makeGraphs(error, data) {
     };
   }
 
-
   var filteredQuestionGroup = remove_empty_question(questionGroup);
 
   var pseudoQuestionDimension = {
@@ -347,7 +341,8 @@ function makeGraphs(error, data) {
     .sortBy(function(d) { return d.value.category; })
     .order(d3.descending);
 
-  dc.renderAll();}
+  dc.renderAll();
+}
 
 
 

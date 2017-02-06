@@ -3,11 +3,11 @@ queue()
 // .defer(d3.json, "maf_response_student.json")
   .await(makeGraphs);
 
-var monthNames = [
-    "January", "February", "March", "April", "May",
-    "June", "July", "August", "September", "October",
-    "November", "December"
-];
+// var monthNames = [
+//     "January", "February", "March", "April", "May",
+//     "June", "July", "August", "September", "October",
+//     "November", "December"
+// ];
 
 function makeGraphs(error, data) {
 
@@ -20,16 +20,16 @@ function makeGraphs(error, data) {
   // Make sure date is parsed based on specific format (2014-04-25)
   var DTSformat = d3.time.format("%Y-%m-%d");
   var numberFormat = d3.format(".2f");
+  var monthNameYearFormat = d3.time.format("%B %Y");
 
   // set up data
   data.forEach(function(d) {
       d.t = DTSformat.parse(d.response_date.substr(0, 10));
       d.month = d3.time.month(d.t);
-      d.MonthName = monthNames[d.t.getMonth()];
   });
 
   // console.log("data");
-  // console.log(data);
+  console.log(data);
 
   // --- Assign Colour to Categories ---
   var colorScale = d3.scale.ordinal().domain([
@@ -50,8 +50,14 @@ function makeGraphs(error, data) {
 
   var ndx = crossfilter(data);
 
+  var dateDimension = ndx.dimension(function(d) { return d.month; });
+
   var categoryDim = ndx.dimension(function(d) {
       return d.category;
+  });
+
+  var dateGroup = dateDimension.group().reduceSum(function(d) {
+      return +d.score;
   });
 
   var categoryGroup = categoryDim.group().reduce(
@@ -342,6 +348,28 @@ function makeGraphs(error, data) {
     ])
     .sortBy(function(d) { return d.value.category; })
     .order(d3.descending);
+
+
+  dateSelectField = dc.selectMenu('#mafDateSelectField')
+    .dimension(dateDimension)
+    .group(dateGroup);
+
+  dateSelectField
+    .title(function(d) {
+      return monthNameYearFormat(d.key);
+    });
+
+
+  var oldHandler = dateSelectField.filterHandler();
+  dateSelectField.filterHandler(
+    function(dimension, filters) {
+      var parseFilters = filters.map(
+        function(d) {
+          return new Date(d);
+        })
+        oldHandler(dimension, parseFilters);
+        return filters;
+      });
 
   dc.renderAll();
 }
