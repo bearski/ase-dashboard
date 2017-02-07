@@ -479,14 +479,14 @@
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, .05), 0 1px 0 rgba(255, 255, 255, .1)
 }
 
-/*# sourceMappingURL=bootstrap-theme.min.css.map */
+/*# source MappingURL=bootstrap-theme.min.css.map */
 
 .navbar-brand>img {
-   max-height: 100%;
-   height: 100%;
-   width: auto;
-   margin: 0 auto;
-
+   /*max-height: 100%;*/
+   height: 55px;
+   /*width: auto;*/
+   /*margin: 0 auto;*/
+}
 
    /* probably not needed anymore, but doesn't hurt */
    -o-object-fit: contain;
