@@ -1341,7 +1341,8 @@ html {
 }
 
 body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    font-family: "Roboto"
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
@@ -1375,7 +1376,7 @@ figure {
 }
 
 img {
-    vertical-align: middle
+    vertical-align: top
 }
 
 .carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
@@ -3621,7 +3622,7 @@ tbody.collapse.in {
     width: 0;
     height: 0;
     margin-left: 2px;
-    vertical-align: middle;
+    vertical-align: top;
     border-top: 4px dashed;
     border-top: 4px solid\9;
     border-right: 4px solid transparent;
@@ -4313,9 +4314,9 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 
 .navbar {
     position: relative;
-    min-height: 80px;
-    margin-bottom: 20px;
-    border: 1px solid transparent
+    /*min-height: 80px;*/
+    /*margin-bottom: 20px;*/
+    border: 0
 }
 
 @media (min-width:768px) {
@@ -4424,9 +4425,9 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 }
 
 .navbar-brand {
-    float: left;
+    float: none;
     height: 50px;
-    padding: 15px 15px;
+    /*padding: 15px 15px;*/
     font-size: 18px;
     line-height: 20px
 }
@@ -4454,7 +4455,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
     margin-bottom: 8px;
     background-color: transparent;
     background-image: none;
-    border: 1px solid transparent;
+    border: 0;
     border-radius: 4px
 }
 
@@ -4489,6 +4490,19 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
     line-height: 20px
 }
 
+.navbar-nav > li > a {
+  padding-top:5px !important;
+  padding-bottom:0 !important;
+  height: 28px;
+}
+
+.navbar {
+  min-height:28px !important
+  margin-bottom: 0;
+  border: 1px solid transparent
+}
+
+
 @media (max-width:767px) {
     .navbar-nav .open .dropdown-menu {
         position: static;
@@ -4513,11 +4527,11 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 
 @media (min-width:768px) {
     .navbar-nav {
-        float: left;
+        float: none;
         margin: 0
     }
     .navbar-nav>li {
-        float: left
+        float: none
     }
     .navbar-nav>li>a {
         padding-top: 15px;
@@ -4541,19 +4555,19 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
     .navbar-form .form-group {
         display: inline-block;
         margin-bottom: 0;
-        vertical-align: middle
+        vertical-align: top
     }
     .navbar-form .form-control {
         display: inline-block;
         width: auto;
-        vertical-align: middle
+        vertical-align: top
     }
     .navbar-form .form-control-static {
         display: inline-block
     }
     .navbar-form .input-group {
         display: inline-table;
-        vertical-align: middle
+        vertical-align: top
     }
     .navbar-form .input-group .form-control, .navbar-form .input-group .input-group-addon, .navbar-form .input-group .input-group-btn {
         width: auto
@@ -4563,13 +4577,13 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
     }
     .navbar-form .control-label {
         margin-bottom: 0;
-        vertical-align: middle
+        vertical-align: top
     }
     .navbar-form .checkbox, .navbar-form .radio {
         display: inline-block;
         margin-top: 0;
         margin-bottom: 0;
-        vertical-align: middle
+        vertical-align: top
     }
     .navbar-form .checkbox label, .navbar-form .radio label {
         padding-left: 0
@@ -4641,7 +4655,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 
 @media (min-width:768px) {
     .navbar-text {
-        float: left;
+        float: none;
         margin-right: 15px;
         margin-left: 15px
     }
@@ -6974,7 +6988,16 @@ button.close {
 
 
 
-/*.navbar.transparent.navbar-default .navbar-inner {
+.navbar-nav > li > a, .navbar-brand {
+    padding-top:5px !important;
+    padding-bottom:0 !important;
+    height: 65px;
+}
+.navbar {min-height:30px !important;}
+
+
+/*
+.navbar.transparent.navbar-inverse .navbar-inner {
    border-width: 0px;
    -webkit-box-shadow: 0px 0px;
    box-shadow: 0px 0px;
@@ -6983,3 +7006,20 @@ button.close {
    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
 }*/
+
+
+.navbar-inner{
+background:transparent !important;
+}
+.navbar-inner container{
+background:transparent !important;
+}
+.navbar{
+background:transparent !important;
+}
+#nav-main{
+background:transparent !important;
+}
+#banner{
+background:transparent !important;
+}​

@@ -1,155 +1,182 @@
 <!DOCTYPE html>
 <html lang='en'>
+
 <head>
-  <meta charset='utf-8'>
-  <script src='js/deps/queue.js' type='text/javascript'></script>
-  <script src='js/deps/d3.js' type='text/javascript'></script>
-  <script src='js/deps/crossfilter.js' type='text/javascript'></script>
-  <script src='js/deps/dc.js' type='text/javascript'></script>
-  <script src='js/deps/jquery-2.2.4.min.js' type='text/javascript'></script>
-  <script src='js/deps/bootstrap.min.js' type='text/javascript'></script>
+    <meta charset='utf-8'>
+    <script src='js/deps/queue.js' type='text/javascript'></script>
+    <script src='js/deps/d3.js' type='text/javascript'></script>
+    <script src='js/deps/crossfilter.js' type='text/javascript'></script>
+    <script src='js/deps/dc.js' type='text/javascript'></script>
+    <script src='js/deps/jquery-2.2.4.min.js' type='text/javascript'></script>
+    <script src='js/deps/bootstrap.min.js' type='text/javascript'></script>
 
-  <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-  <link href='css/bootstrap-theme.min.css' rel='stylesheet' type='text/css'>
-  <link href='css/dc.css' rel='stylesheet' type='text/css'>
+    <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <link href='css/bootstrap-theme.min.css' rel='stylesheet' type='text/css'>
+    <link href='css/dc.css' rel='stylesheet' type='text/css'>
+    <link href='css/ase.css' rel='stylesheet' type='text/css'>
+    <link href='css/thim-css-style.css' rel='stylesheet' type='text/css'>
+    <link href='css/thim-style.css' rel='stylesheet' type='text/css'>
 
-  <script src='js/environment_student.js' type='text/javascript'></script>
+    <script src='js/environment_student.js' type='text/javascript'></script>
 
 </head>
 
 <body>
 
-  <nav class="navbar navbar-default">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="http://www.ase.org.za/">
-          <img src="images/ASE_ACRONYM_RGB_LOW-RES.jpg" alt="African School For Excellence">
-        </a>
-      </div>
+    <div id="toolbar" class="toolbar">
+        <div class="container">
+            <div class="row">
 
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="leaderboard_student.html">Academic Leaderboard</a></li>
+                <div class="col-sm-12">
+                    <aside id="text-2" class="widget widget_text">
+                        <div class="textwidget">
+                            <div class="thim-have-any-question">
+                                Get In Touch
+                                <div class="mobile"><i class="fa fa-phone"></i><a href="tel: +27110275400" class="value">+27 11 027 5400</a>
+                                </div>
+                                <div class="email"><i class="fa fa-envelope"></i><a href="mailto:info@ase.org.za">info@ase.org.za</a>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
 
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mutual Accountabilty Feedback
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="environment_student.html">Student</a></li>
-                <li><a href="environment_sla.html">SLA</a></li>
-              </ul>
-            </li>
-          </ul>
+                    <aside id="button-2" class="toolbar widget_login-popup toolbar widget_login-menu widget widget_button">
+                        <div class="thim-widget-button thim-widget-button-base">
+                            <a class="widget-button  small custom_style" href="http://www.ase.org.za/donate/" style="font-size: 14px;font-weight: normal;color: #ffffff;border-color: #ffffff;background-color: #2e2d8d;" data-hover="font-size: 14px;font-weight: normal;color: #000000;border-color: #ffffff;background-color: #ffdf4f;">
+                                <i class="fa fa-heart" style="font-size: 14px;">
+                </i> DONATE
+                            </a>
+                        </div>
+                    </aside>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="https://www.ase.org.za/">Home</a></li>
-            <li><a href="https://www.ase.org.za/about-2/">About</a></li>
-            <li><a href="https://www.ase.org.za/contact/">Contact</a></li>
-						<li class="dropdown">
-	            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Links
-	              <span class="caret"></span></a>
-	              <ul class="dropdown-menu">
-	                <li><a href="https://classroom.google.com">Google Classroom</a></li>
-	                <li><a href="https://www.khanacademy.org/">Khan Academy</a></li>
-									<li><a href="https://www.typingclub.com/login/">Typing Club</a></li>
-	                <li><a href="https://www.gmail.com">Gmail</a></li>
-	              </ul>
-	            </li>
-	          </ul>
-
-          </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </nav>
+    </div>
+    <!--End/div#toolbar-->
+
+    <div id="container">
+        <div class="navbar navbar-default">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <a class="navbar-brand" href="http://www.ase.org.za/">
+                        <img src="images/ASE-Logo-blue.png" alt="African School For Excellence">
+                    </a>
+                    <li>
+                        <a href="leaderboard_student.html">Academic Leaderboard</a>
+                    </li>
+
+                    <li class="dropdown active">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mutual Accountabilty Feedback
+                      <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="active"><a href="#">Student</a></li>
+                            <li><a href="environment_sla.html">SLA</a></li>
+                        </ul>
+                    </li>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://www.ase.org.za/">Home</a></li>
+                        <li><a href="https://www.ase.org.za/about-2/">About</a></li>
+                        <li><a href="https://www.ase.org.za/contact/">Contact</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Links
+        	              <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://classroom.google.com">Google Classroom</a></li>
+                                <li><a href="https://www.khanacademy.org/">Khan Academy</a></li>
+                                <li><a href="https://www.typingclub.com/login/">Typing Club</a></li>
+                                <li><a href="https://www.gmail.com">Gmail</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </div>
 
 
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
+    <div class='container' id='main-container'>
+        <div class='content'>
+            <div class='container' style='font: 10px sans-serif;'>
+                <h3>Mutual Accountability Feedback (Students)</h3>
+                <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                <p>&nbsp;</p>
+                <div id="mafDateSelectField" style="width:300px; float:none;"></div>
 
-  <div class='container' id='main-container'>
-    <div class='content'>
-      <div class='container' style='font: 10px sans-serif;'>
-        <h3>Mutual Accountability Feedback (Students)</h3>
-        <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
-        <p>&nbsp;</p>
-        <div id="mafDateSelectField" style="width:300px; float:none;"></div>
-
-        <p>
-        <div class='row-fluid'>
-          <div class="col-sm-12">
-            <h4>Average Scores Per Category</h4>
-            <span>
+                <p>
+                    <div class='row-fluid'>
+                        <div class="col-sm-12">
+                            <h4>Average Scores Per Category</h4>
+                            <span>
               <a class="reset" href="javascript:studentCategoryRowChart.filterAll(); dc.redrawAll();" style="display: none;"> reset </a>
             </span>
-            <div class="row">
-              <div class="col-sm-6" id='studentCategoryRowChart'>
-              </div>
+                            <div class="row">
+                                <div class="col-sm-6" id='studentCategoryRowChart'>
+                                </div>
 
-              <div class="col-sm-6" >
-                <div>
-                  <table class='table table-hover dc-data-table' id='studentCategoryDataTable'>
-                    <thead>
-                      <tr class='header'>
-                        <th>Category</th>
-                        <th>Grade 7</th>
-                        <th>Grade 8</th>
-                        <th>Grade 9</th>
-                        <th>Grade 10</th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
+                                <div class="col-sm-6">
+                                    <div>
+                                        <table class='table table-hover dc-data-table' id='studentCategoryDataTable'>
+                                            <thead>
+                                                <tr class='header'>
+                                                    <th>Category</th>
+                                                    <th>Grade 7</th>
+                                                    <th>Grade 8</th>
+                                                    <th>Grade 9</th>
+                                                    <th>Grade 10</th>
+                                                    <th>Grade 11</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </p>
+
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+
+                <p>
+                    <div class='row-fluid'>
+                        <div class="col-sm-12">
+                            <h4>Average Scores Per Question</h4>
+                            <span><a class="reset" href="javascript:studentQuestionRowChart.filterAll(); dc.redrawAll();" style="display: none;"> reset </a></span>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div id='studentQuestionRowChart'>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div>
+                                        <table class='table table-hover dc-data-table' id='studentQuestionDataTable'>
+                                            <thead>
+                                                <tr class='header'>
+                                                    <th>Category</th>
+                                                    <th>Question</th>
+                                                    <th>Grade 7</th>
+                                                    <th>Grade 8</th>
+                                                    <th>Grade 9</th>
+                                                    <th>Grade 10</th>
+                                                    <th>Grade 11</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p>
 
             </div>
-          </div>
         </div>
-      </p>
-
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-
-      <p>
-      <div class='row-fluid'>
-        <div class="col-sm-12">
-          <h4>Average Scores Per Question</h4>
-          <span><a class="reset" href="javascript:studentQuestionRowChart.filterAll(); dc.redrawAll();" style="display: none;"> reset </a></span>
-          <div class="row">
-            <div class="col-sm-6" >
-              <div id='studentQuestionRowChart'>
-              </div>
-            </div>
-
-            <div class="col-sm-6" >
-              <div>
-                <table class='table table-hover dc-data-table' id='studentQuestionDataTable'>
-                  <thead>
-                    <tr class='header'>
-                      <th>Category</th>
-                      <th>Question</th>
-                      <th>Grade 7</th>
-                      <th>Grade 8</th>
-                      <th>Grade 9</th>
-                      <th>Grade 10</th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      </p>
-
-      </div>
     </div>
-  </div>
 
 </body>
 </head>

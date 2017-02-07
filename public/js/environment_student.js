@@ -3,14 +3,7 @@ queue()
 // .defer(d3.json, "maf_response_student.json")
   .await(makeGraphs);
 
-// var monthNames = [
-//     "January", "February", "March", "April", "May",
-//     "June", "July", "August", "September", "October",
-//     "November", "December"
-// ];
-
 function makeGraphs(error, data) {
-
   // charts
   studentCategoryRowChart = dc.rowChart("#studentCategoryRowChart");
   studentQuestionRowChart = dc.rowChart("#studentQuestionRowChart");
@@ -18,18 +11,18 @@ function makeGraphs(error, data) {
   studentQuestionDataTable = dc.dataTable("#studentQuestionDataTable");
 
   // Make sure date is parsed based on specific format (2014-04-25)
-  var DTSformat = d3.time.format("%Y-%m-%d");
+  var dateFormat = d3.time.format("%Y-%m-%d");
   var numberFormat = d3.format(".2f");
   var monthNameYearFormat = d3.time.format("%B %Y");
 
   // set up data
   data.forEach(function(d) {
-      d.t = DTSformat.parse(d.response_date.substr(0, 10));
+      d.t = dateFormat.parse(d.response_date.substr(0, 10));
       d.month = d3.time.month(d.t);
   });
 
   // console.log("data");
-  console.log(data);
+  // console.log(data);
 
   // --- Assign Colour to Categories ---
   var colorScale = d3.scale.ordinal().domain([
@@ -87,10 +80,10 @@ function makeGraphs(error, data) {
           p.grade10totalScore += +v.score;
           p.grade10averageScore = (p.grade10totalScore / p.grade10count);
           break;
-        case 0:
-          ++p.grade0count;
-          p.grade0totalScore += +v.score;
-          p.grade0averageScore = (p.grade0totalScore / p.grade0count);
+        case 11:
+          ++p.grade11count;
+          p.grade11totalScore += +v.score;
+          p.grade11averageScore = (p.grade11totalScore / p.grade11count);
       }
       return p;
   },
@@ -120,10 +113,10 @@ function makeGraphs(error, data) {
           p.grade10totalScore -= +v.score;
           p.grade10averageScore = (p.grade10totalScore / p.grade10count);
           break;
-        case 0:
-          --p.grade0count;
-          p.grade0totalScore -= +v.score;
-          p.grade0averageScore = (p.grade0totalScore / p.grade0count);
+        case 11:
+          --p.grade11count;
+          p.grade11totalScore -= +v.score;
+          p.grade11averageScore = (p.grade11totalScore / p.grade11count);
       }
       return p;
   },
@@ -145,9 +138,9 @@ function makeGraphs(error, data) {
         grade10count: 0,
         grade10averageScore: 0,
         grade10totalScore: 0,
-        grade0count: 0,
-        grade0totalScore: 0,
-        grade0averageScore: 0
+        grade11count: 0,
+        grade11totalScore: 0,
+        grade11averageScore: 0
       };
   });
 
@@ -185,10 +178,10 @@ function makeGraphs(error, data) {
           p.grade10totalScore += +v.score;
           p.grade10averageScore = (p.grade10totalScore / p.grade10count);
           break;
-        case 0:
-          ++p.grade0count;
-          p.grade0totalScore += +v.score;
-          p.grade0averageScore = (p.grade0totalScore / p.grade0count);
+        case 11:
+          ++p.grade11count;
+          p.grade11totalScore += +v.score;
+          p.grade11averageScore = (p.grade11totalScore / p.grade11count);
       }
       return p;
     },
@@ -219,10 +212,10 @@ function makeGraphs(error, data) {
           p.grade10totalScore -= +v.score;
           p.grade10averageScore = (p.grade10totalScore / p.grade10count);
           break;
-        case 0:
-          --p.grade0count;
-          p.grade0totalScore -= +v.score;
-          p.grade0averageScore = (p.grade0totalScore / p.grade0count);
+        case 11:
+          --p.grade11count;
+          p.grade11totalScore -= +v.score;
+          p.grade11averageScore = (p.grade11totalScore / p.grade11count);
       }
       return p;
     },
@@ -245,9 +238,9 @@ function makeGraphs(error, data) {
         grade10count: 0,
         grade10averageScore: 0,
         grade10totalScore: 0,
-        grade0count: 0,
-        grade0totalScore: 0,
-        grade0averageScore: 0
+        grade11count: 0,
+        grade11totalScore: 0,
+        grade11averageScore: 0
       };
     }
   );
@@ -275,6 +268,7 @@ function makeGraphs(error, data) {
 
 
   var filteredQuestionGroup = remove_empty_question(questionGroup);
+
   var pseudoQuestionDimension = {
     top: function(x) {
       return filteredQuestionGroup.all().map(function(grp) {
@@ -294,13 +288,6 @@ function makeGraphs(error, data) {
     .elasticX(false)
     .xAxis()
     .ticks(5);
-
-    // studentCategoryRowChart.renderlet(function(chart) {
-    //           dc.events.trigger(function() {
-    //               console.log(studentCategoryRowChart.filters())
-    //           });
-    //       })
-
 
 
   studentQuestionRowChart
@@ -326,7 +313,8 @@ function makeGraphs(error, data) {
         function(d) { return numberFormat(d.value.grade7averageScore); },
         function(d) { return numberFormat(d.value.grade8averageScore); },
         function(d) { return numberFormat(d.value.grade9averageScore); },
-        function(d) { return numberFormat(d.value.grade10averageScore); }
+        function(d) { return numberFormat(d.value.grade10averageScore); },
+        function(d) { return numberFormat(d.value.grade11averageScore); }
     ])
     .sortBy(function(d) { return -d.key; })
     .order(d3.descending);
@@ -344,7 +332,8 @@ function makeGraphs(error, data) {
         function(d) { return numberFormat(d.value.grade7averageScore); },
         function(d) { return numberFormat(d.value.grade8averageScore); },
         function(d) { return numberFormat(d.value.grade9averageScore); },
-        function(d) { return numberFormat(d.value.grade10averageScore); }
+        function(d) { return numberFormat(d.value.grade10averageScore); },
+        function(d) { return numberFormat(d.value.grade11averageScore); }
     ])
     .sortBy(function(d) { return d.value.category; })
     .order(d3.descending);
