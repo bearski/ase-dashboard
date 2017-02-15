@@ -5,8 +5,6 @@ queue()
 
 function makeGraphs(error, data) {
 
-  // console.log(data);
-
   pagesReadEmailDataTable = dc.dataTable('#pagesReadEmailDataTable');
   pagesReadRowChart = dc.rowChart('#pagesReadRowChart');
 

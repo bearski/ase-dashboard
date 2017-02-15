@@ -152,6 +152,42 @@ module.exports = function(app) {
     });
   });
 
+
+  app.get('/api/test', (req, res, next) => {
+    const results = [];
+    // Get a Postgres client from the connection pool
+    pg.connect(connectionString, (err, client, done) => {
+      // Handle connection errors
+      if(err) {
+        done();
+        console.log(err);
+        return res.status(500).json({success: false, data: err});
+      }
+
+      // SQL Query > Select Data
+      const query = client.query(
+        'select $$khan_points$$::varchar dtype, student_name, grade, activity_date, ' +
+        '$$$$::varchar file_name, points_per_date from fn_get_khan_points() ' +
+        ' union ' +
+        'select $$word_count$$::varchar  dtype, student_name, grade, last_update, ' +
+        'file_name, word_count from fn_get_word_count() ' +
+        'union ' +
+        'select $$page_count$$::varchar  dtype, student_name, grade, review_date, ' +
+        '$$$$::varchar file_name, page_count from fn_get_page_count()'
+      );
+      // Stream results back one row at a time
+      query.on('row', (row) => {
+        results.push(row);
+      });
+      // After all data is returned, close connection and return results
+      query.on('end', () => {
+        done();
+        return res.json(results);
+      });
+    });
+  });
+
+
  // frontend routes =========================================================
  app.get('*', function(req, res) {
   // res.sendfile('./public/login.html');
