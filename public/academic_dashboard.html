@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+    <!-- <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/keen-dashboards.css" />
+
+    <script type="text/javascript" src="assets/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/lib/holderjs/holder.js"></script>
+
+    <script type="text/javascript" src="assets/lib/keen-js/dist/keen.min.js"></script>
+    <script type="text/javascript" src="assets/js/meta.js"></script> -->
+
+
+
+    <!-- <title> Analytics Dashboard</title> -->
+    <title>African School for Excellence &#8211; Affordable. Scalable. World class.</title>
+
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Bootstrap -->
+    <link href='css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <link href='css/dc.css' rel='stylesheet' type='text/css'>
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <!--  920 x 147.19 is size of stark industries logo; the file is 5000 x 800 pixels; so let's just cut it in half -->
+        <a href="http://www.ase.org.za/">
+            <img src="images/ASE-Logo-blue.png" width="200" height="80" alt="African School for Excellence">
+        </a>
+        <h1>Analytics Dashboard</h1>
+        <a href='javascript:dc.filterAll();dc.redrawAll();'>Reset All</a>
+
+
+        <!--TODO: Fix the display of the reset button on brush of the sync and hours histograms, using css/js width configuration -->
+        <!--TODO: add intro.js to this-->
+        <!-- <div class="row-fluid pull-left">
+        <div class="dc-data-count">
+          <div id="record-data-count" class="pull-left"></div>
+          <div id="unit-data-count" class="pull-left"></div>
+        </div>
+        <br /><br />
+      </div> -->
+
+
+        <div class="container visible-desktop">
+
+            <div class="row-fluid">
+
+                <table style="width:100%">
+                    <tr>
+                        <div class="col-sm-4" id="year-pie-chart">
+                            <h4>Year</h4>
+                            <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:yearPieChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-sm-4" id="quarter-pie-chart">
+                            <h4>Quarter</h4>
+                            <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:quarterChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-sm-4" id="month-bar-chart">
+                            <h4>Points Per Month</h4>
+                            <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:monthBarChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </tr>
+                </table>
+
+
+            </div>
+
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+
+            <!-- <div class="row">
+
+          <div class="col-sm-6" id="test_composed">
+            <h4>heading goes here</h4>
+            <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+            <a class="reset" href="javascript:composite.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="col-sm-6" id="day-of-week-chart">
+            <h4>Points Per Day of Week</h4>
+            <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+            <a class="reset" href="javascript:dayOfWeekChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+            <div class="clearfix"></div>
+          </div>
+
+        </div> -->
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            <h4>Khan Points</h4>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="khan-row-chart">
+                                <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                <a class="reset" href="javascript:khanRowChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <!-- <div class="chart-notes">
+                This is a sample text region to describe this chart.
+              </div> -->
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            <h4>Pages Read</h4>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="pagecount-row-chart">
+                                <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                <a class="reset" href="javascript:pageCountRowChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <!-- <div class="chart-notes">
+                Notes go down here
+              </div> -->
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">Khan Leader Board</div>
+                        <div class="chart-stage">
+                            <div id="exportable-table">
+                                <table class="table table-hover khan-data-table"></table>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">Most Pages Read</div>
+                        <div class="chart-stage">
+                            <div id="exportable-table">
+                                <table class="table table-hover page-data-table"></table>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            <h4>Word Count</h4>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="wordcount-row-chart">
+                                <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                <a class="reset" href="javascript:wordCountRowChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <!-- <div class="chart-notes">
+                This is a sample text region to describe this chart.
+              </div> -->
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            <h4>Word Count Leader Board</h4>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="wordcount-leader-row-chart">
+                                <span class="reset" style="display: none;">range: <span class="filter"></span></span>
+                                <a class="reset" href="javascript:wordCountLeaderRowChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </div>
+                        <!-- <div class="chart-notes">
+                Notes go down here
+              </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+
+            <div class="col-sm-12">
+                <div class="chart-wrapper">
+                    <div class="chart-title">
+                      <h4>Documents</h4>
+                    </div>
+                    <div class="chart-stage">
+                        <div id="exportable-table">
+                            <table class="table table-hover wordcount-data-table"></table>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <br/>
+
+    <script type="text/javascript">
+        function AnAlert() {
+            return window.alert('This feature is disabled.\nWhat did you expect from a demo?');
+        }
+    </script>
+
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+              <a data-toggle="collapse" href="#notes-section">Notes</a>
+            </h4>
+            </div>
+            <div id="notes-section" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li class="list-group-item">Dashboard data is based ASE students performance on Khan Academy and submissions on Google Classroom.</li>
+                    <li class="list-group-item">
+                        <h4>More Notes Here</h4> Description on notes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    <hr>
+    <br/>
+
+    <!-- <footer>
+        <span style="float:right;">
+          Created by <a href="http://www.mikezawitkowski.com">Mike Zawitkowski</a>
+        </span>
+        Copyright 2016 <a href="http://mikezawitkowski.com">Stark Industries, Inc.</a>
+      </footer> -->
+
+
+
+
+
+    </div>
+
+    <!-- THIRD-PARTY JAVASCRIPT LIBRARIES  -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src='js/deps/jquery-2.2.4.min.js' type='text/javascript'></script>
+    <script src='js/deps/bootstrap.min.js' type='text/javascript'></script>
+    <script src='js/deps/queue.js' type='text/javascript'></script>
+    <script src='js/deps/crossfilter.min.js' type='text/javascript'></script>
+    <script src='js/deps/d3.min.js' type='text/javascript'></script>
+    <script src='js/deps/dc214.js' type='text/javascript'></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/academic_dashboard.js" type="text/javascript"></script>
+    <script src="js/exporttable.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        function AlertIt() {
+            var answer = confirm("Please click on OK to continue.")
+            if (answer)
+                window.location = "http://www.continue.com";
+        }
+    </script>
+
+</body>
+
+</html>
