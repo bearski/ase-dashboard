@@ -751,6 +751,7 @@ function makeGraphs(error, khanData, pageCountData, wordCountData) {
           numberFormat((d.value.averageValue || 0)) +
           ' (' + d.value.studentCount + ' students)';
     })
+    .ordering(function(d) { return -d.value.averageValue })
     .renderTitle(true)
     .title(function (d) {return d.key;})
     .elasticX(true);
