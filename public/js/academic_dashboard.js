@@ -62,7 +62,7 @@ function makeGraphs(error, khanData, pageCountData, wordCountData) {
     });
 
 
-  // console.log(khanData[0]);
+  console.log(khanData[0]);
   // console.log(pageCountData[0]);
   // console.log(wordCountData[0]);
 
@@ -181,24 +181,27 @@ function makeGraphs(error, khanData, pageCountData, wordCountData) {
   //  set up reduce average functions
   function reduceAdd(p, d) {
     ++p.count;
-    p.totalValue += +d.value;
+    p.totalValue += d.value;
     if (d.student_name in p.studentNames) {
-      p.studentNames[d.student_name] += 1
+      p.studentNames[d.student_name]++
     } else {
       p.studentNames[d.student_name] = 1;
       p.studentCount++;
     }
+
     p.averageValue = (p.totalValue/p.studentCount);
     return p;
   }
 
   function reduceRemove(p, d) {
     --p.count;
-    p.totalValue -= +d.value;
+    p.totalValue -= d.value;
+    p.studentNames[d.student_name]--
     if (p.studentNames[d.student_name] === 0) {
       delete p.studentNames[d.student_name];
       p.studentCount--;
     }
+
     p.averageValue = (p.totalValue/p.studentCount);
     return p;
   }
@@ -723,7 +726,9 @@ function makeGraphs(error, khanData, pageCountData, wordCountData) {
     .ordinalColors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
     .renderLabel(true)
     .label(function (d) {
-        return 'Grade ' + d.key + ' ('+  numberFormat((d.value.averageValue || 0)) + ' pages)';
+        return 'Grade ' + d.key + ': ' +
+          numberFormat((d.value.averageValue || 0)) +
+          ' (' + d.value.studentCount + ' students)';
     })
     .renderTitle(true)
     .title(function (d) {return d.key;})

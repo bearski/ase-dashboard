@@ -202,7 +202,8 @@ module.exports = function(app) {
 
       // SQL Query > Select Data
       const query = client.query(
-        'select student_name, grade, activity_date, points_per_date from fn_get_khan_points() '
+        // 'select student_name, grade, activity_date, points_per_date from fn_get_khan_points() '
+        'select student_name, grade, activity_date, total_points, points_increase points_per_date from fn_get_khan_points_lag() '
       );
       // Stream results back one row at a time
       query.on('row', (row) => {
