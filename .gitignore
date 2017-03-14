@@ -47,5 +47,22 @@ jspm_packages
 .yarn-integrity
 
 .env
+.env-variables
 node_modules/
 public/*.json
+public/*.csv
+*.sql
+
+
+_config/
+app/_models/
+public/date-filter.html
+public/grouped-bar-chart.html
+public/js/date-filter.js
+public/js/dc.20170115.js
+public/js/dc.js.grouped_bar_chart
+public/js/dc.js.orig
+public/js/dc.js.v2
+public/js/monthly-move.js
+public/leaderboard.html
+public/switching-time-intervals.html
